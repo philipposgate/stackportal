@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: stackportal
+  name: stackportal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stackportal
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: stackportal
+    spec:
+      containers:
+      - image: neo4j:5.1.0-community
+        name: stackportaldatabase
+        resources: {}
+status: {}
