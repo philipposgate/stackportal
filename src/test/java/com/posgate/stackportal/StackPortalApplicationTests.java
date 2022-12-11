@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.transport.SshTransport;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,20 +25,26 @@ class StackPortalApplicationTests {
 	}
 
 	@Test
-	public void should_connect_to_public_repo() throws IOException, GitAPIException {
+	public void should_connect_to_public_repo() throws Exception {
 
 		// prepare a new folder for the cloned repository
 		File localPath = File.createTempFile("TestGitRepository", "");
+		logger.info("Local working directory: " + localPath);
 		localPath.delete();
 
 		// then clone
-		try (Git result = Git.cloneRepository()
+		Git result = Git.cloneRepository()
 				.setURI(HTTPS_URL)
 				.setDirectory(localPath)
-				.call()) {
-			// Important to close the repo after being used
-			logger.info("Having repository: " + result.getRepository().getDirectory());
-		}
+				.call();
+
+		logger.info("Local .git directory: " + result.getRepository().getDirectory());
+
+		String path = localPath.getAbsolutePath() + "/data/data.json";
+		logger.info("path to file: " + path);
+		File file = new File(localPath.getAbsolutePath() + "/data/data.json");
+
+		Assertions.assertTrue(file.exists());
 	}
 
 	// @Test
