@@ -4,6 +4,11 @@ public class StackPortalModel {
     
     private String name;
 
+    @Override
+    public String toString() {
+        return "StackPortalModel [name=" + name + "]";
+    }
+
     public String getName() {
         return name;
     }

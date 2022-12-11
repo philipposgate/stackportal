@@ -1,6 +1,8 @@
 package com.posgate.stackportal.services;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -54,5 +56,11 @@ public class GitService {
     public File getFile(String path) {
 
         return new File(localPath.getAbsolutePath() + path);
+    }
+
+    public String readFileToString(String filePath) throws Exception {
+        Path path = Path.of(localPath.getAbsolutePath() + filePath);
+        logger.info("readFileToString(): " + path);
+        return Files.readString(path);
     }
 }
