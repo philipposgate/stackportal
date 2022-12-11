@@ -37,7 +37,7 @@ public class StackPortalService {
         return stackPortalModel;
     }
 
-    public void refreshModels() {
+    public void resetModels() {
         stackPortalModel = null;
         gitService.pull();
     }

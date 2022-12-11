@@ -53,11 +53,6 @@ public class GitService {
         gitRepo.close();
     }
 
-    public File getFile(String path) {
-
-        return new File(localPath.getAbsolutePath() + path);
-    }
-
     public String readFileToString(String filePath) throws Exception {
         Path path = Path.of(localPath.getAbsolutePath() + filePath);
         logger.info("readFileToString(): " + path);
