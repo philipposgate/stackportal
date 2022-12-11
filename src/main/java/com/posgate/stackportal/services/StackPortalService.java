@@ -20,16 +20,25 @@ public class StackPortalService {
 
     public StackPortalModel getStackPortalModel() {
 
-        try {
-            String json = gitService.readFileToString("/data/data.json");
-            logger.info("StackPortalModel json:\n" + json);
-            ObjectMapper objectMapper = new ObjectMapper();
-            stackPortalModel = objectMapper.readValue(json, StackPortalModel.class);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
+        if (stackPortalModel == null)
+        {
+            try {
+                String json = gitService.readFileToString("/data/data.json");
+                logger.info("StackPortalModel json:\n" + json);
+                ObjectMapper objectMapper = new ObjectMapper();
+                stackPortalModel = objectMapper.readValue(json, StackPortalModel.class);
+                logger.info("StackPortalModel toString(): " + stackPortalModel.toString());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return stackPortalModel;
+    }
+
+    public void refreshModels() {
+        stackPortalModel = null;
+        gitService.pull();
     }
 }

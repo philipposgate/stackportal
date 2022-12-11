@@ -33,4 +33,11 @@ public class ApiController {
         return stackPortalService.getStackPortalModel();
 	}    
 
+	@GetMapping("/model/refresh")
+	public ResponseEntity getRefreshModel() {
+		logger.info("GET /api/model/refresh");
+		stackPortalService.refreshModels();
+        return ResponseEntity.ok(HttpStatus.OK);
+	}    
+
 }

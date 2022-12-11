@@ -63,4 +63,13 @@ public class GitService {
         logger.info("readFileToString(): " + path);
         return Files.readString(path);
     }
+
+    public void pull() {
+        try {
+            gitRepo.pull().call();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
